@@ -1,15 +1,17 @@
-
-#include "D_Node.h"
+#include "Term.h"
 #include "List.h"
 
 #include <iostream>
-#include <cstdlib>
+#include <sstream>
 
 using namespace std;
 
 void menu();
 void mainMenu();
+Term create_term(string, int);
+List<Term> create_list(string);
 void add_polynomials();
+
 int choice = 0;
 
 int main(int argc, char** argv)
@@ -23,7 +25,8 @@ int main(int argc, char** argv)
 *	Switch through case 1 - 4.
 */
 void menu() {
-	string poly1, poly2;
+	string polyString1, polyString2;
+	List<Term> poly1, poly2;
 
 	do {
 		mainMenu();
@@ -32,13 +35,14 @@ void menu() {
 
 		case 1:
 			cout << "Enter first polynomial: " << endl;
-			cin >> poly1;
-			cout << endl;
+			cin >> polyString1;
+			poly1 = create_list(polyString1);
 			break;
 
 		case 2:
 			cout << "Enter second polynomial: " << endl;
-			cin >> poly2;
+			cin >> polyString2;
+			poly2 = create_list(polyString2);
 			cout << endl;
 			break;
 
@@ -54,7 +58,7 @@ void menu() {
 	} while (choice != 4);
 }//end of menu
 
-void mainMenu(void) {
+void mainMenu() {
 
 	cout << "Main Menu" << endl;
 	cout << "1 - Enter 1st Polynomial" << endl;
@@ -67,7 +71,69 @@ void mainMenu(void) {
 
 }
 
-void add_polynomials(void) {
+Term create_term(string term, int val) {
+	string coeffString, expString;
+	int i, coeff = 1, exp = 1;
+
+	if (term.find('x') != string::npos) {
+		for (i = 0; term[i] != 'x'; i++) {
+			coeffString.push_back(term[i]);
+		}
+
+		if (term.find('^') != string::npos) {
+			for (i = i + 2; i != term.size(); i++) {
+				expString.push_back(term[i]);
+			}
+		}
+	} else {
+		coeffString = term;
+		expString = "0";
+	}
+
+	if (!coeffString.empty()) {
+		coeff = stoi(coeffString);
+	}
+	
+	if (!expString.empty()) {
+		exp = stoi(expString);
+	}
+
+	return Term(exp, coeff * val);
+}
+
+List<Term> create_list(string input) {
+	List<Term> poly;
+	int c = 1; // Positive or negative
+
+	while(!input.empty()) {
+		// Check if the next term in positive or negative
+		if (input[0] == '+') {
+			c = 1;
+			input.erase(0,1);
+		} else if (input[0] == '-') {
+			c = -1;
+			input.erase(0,1);
+		}
+
+		size_t pos = input.find_first_of("+-");
+
+		string termString = input.substr(0, pos);
+
+		Term term = create_term(termString, c);
+		poly.push_back(term);
+
+		if (pos == string::npos) {
+			break;
+		}
+		
+		input.erase(0, pos);	
+	}
+
+	return poly;
+}
+
+
+void add_polynomials() {
 	string poly1, poly2; 
 
 	cout << poly1;
