@@ -113,6 +113,8 @@ List<Term> create_list(string input) {
 	List<Term> poly;
 	int c = 1; // Positive or negative
 
+	cout << input << endl;
+
 	while(!input.empty()) {
 		// Check if the next term is positive or negative
 		if (input[0] == '+') {
