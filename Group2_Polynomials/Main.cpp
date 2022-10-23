@@ -113,8 +113,10 @@ List<Term> create_list(string input) {
 	List<Term> poly;
 	int c = 1; // Positive or negative
 
+	cout << input << endl;
+
 	while(!input.empty()) {
-		// Check if the next term in positive or negative
+		// Check if the next term is positive or negative
 		if (input[0] == '+') {
 			c = 1;
 			input.erase(0,1);
@@ -122,8 +124,14 @@ List<Term> create_list(string input) {
 			c = -1;
 			input.erase(0,1);
 		}
-
+		
 		size_t pos = input.find_first_of("+-");
+
+		// Check if the found + or - is within an exponent (right next to a ^ symbol) and ignore it
+		if (pos - input.find('^') == 1) {
+			pos++;
+			pos = input.find_first_of("+-", pos);
+		}
 
 		string termString = input.substr(0, pos);
 

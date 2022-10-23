@@ -40,6 +40,8 @@ public:
     void pop_front();  // Deletes the element at the front end of the list.
     void pop_back();  // Deletes the element at the rear end of the list.
     void clear();  // Deletes all the elements in the list.
+    void sort(); // Sorts the list in descending order
+    
     Iterator begin() const;  // Generates an iterator on the first element of the list.
     Iterator end() const;  // Generates an iterator just after the last element of the list.
     Iterator& insert(Iterator&, const T&);  // Inserts an element at iterator position.
@@ -203,6 +205,54 @@ void List<T>::clear() {
     tail = NULL;
     num_of_items = 0;
 }  // Time complexity: O(n)
+
+// Sorts the list in descending order by exponent
+template <class T>
+void List<T>::sort() {
+    bool unsorted = true;
+
+    while (unsorted) {
+        unsorted = false;
+        D_Node* current = head;
+
+        while (current->next != NULL) {
+            D_Node* next = current->next;
+
+            // If the next node has a higher exponent than the current one, swap their positions
+            if (next->data > current->data) {
+                Term temp = current->data;
+                current->data = next->data;
+                next->data = temp;
+
+                unsorted = true;
+            }
+
+            // If the current and next node have equal exponents, add them together
+            if (current->data == next->data) {
+                current->data += next->data;
+                
+                // Delete the next node
+                if (next->next == NULL) {
+                    pop_back();
+                } else {
+                    num_of_items--;
+                    
+                    next->next->prev = next->prev;
+                    current->next = next->next;
+                    delete next;
+                }
+            }
+
+            // If the current node's coefficient equals 0, delete it
+            if (current->data.isZero()) {
+                current = current->next;
+                pop_front();
+            } else if (current->next != NULL) {
+                current = current->next;
+            }
+        }
+    }
+}
 
 // Stream insertion operator
 template<class T>
