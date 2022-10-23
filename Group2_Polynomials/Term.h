@@ -15,6 +15,12 @@ public:
     // Operators
     friend bool operator < (const Term&, const Term&);
     friend bool operator > (const Term&, const Term&);
+    friend bool operator == (const Term&, const Term&);
+
+    Term& operator += (const Term&);
+
+    // Class-member functions
+    bool isZero() const;
 private:
     // Data fields
     int exponent, coefficient;
@@ -28,6 +34,19 @@ inline bool operator<(const Term& lhs, const Term& rhs) { return lhs.exponent < 
 
 // Greater-Than Operator
 inline bool operator>(const Term& lhs, const Term& rhs) { return rhs < lhs; }
+
+// Equal-to operator
+inline bool operator==(const Term& lhs, const Term& rhs) { return lhs.exponent == rhs.exponent; }
+
+inline Term& Term::operator+=(const Term& rhs) {
+    this->coefficient += rhs.coefficient;
+    return *this;
+}
+
+// Check if the coefficient is zero
+inline bool Term::isZero() const {
+    return coefficient == 0;
+}
 
 
 #endif
