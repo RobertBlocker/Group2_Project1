@@ -11,7 +11,7 @@ void mainMenu();
 Term create_term(string, int);
 List<Term> create_list(string);
 void add_polynomials();
-void print_polynomial(struct D_Node*);
+//void print_polynomial(struct D_Node*);
 	
 int choice = 0;
 
@@ -161,13 +161,13 @@ void add_polynomials(List<Term>& poly1, List<Term>& poly2) {
 /** Prints formatted polynomial out to console
  *	@param poly: D_Node containing Term coefficient and exponent
  */
-void print_polynomial(struct D_Node* poly) {
-	D_Node* poly = head;
-
-	while (poly->next != NULL) {
-		cout << poly->data << "x^" << poly->next->data;
-		poly = poly->next->next;
-		if (poly->next != NULL) { cout << " + "; }
-
-	}
-}
+//void print_polynomial(struct D_Node* poly) {
+//	D_Node* poly = head;
+//
+//	while (poly->next != NULL) {
+//		cout << poly->data << "x^" << poly->next->data;
+//		poly = poly->next->next;
+//		if (poly->next != NULL) { cout << " + "; }
+//
+//	}
+//}
