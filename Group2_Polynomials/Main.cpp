@@ -11,7 +11,8 @@ void mainMenu();
 Term create_term(string, int);
 List<Term> create_list(string);
 void add_polynomials();
-
+void print_polynomial(struct D_Node*);
+	
 int choice = 0;
 
 int main(int argc, char** argv)
@@ -149,10 +150,19 @@ List<Term> create_list(string input) {
 }
 
 
-void add_polynomials() {
-	string poly1, poly2; 
+void add_polynomials(List<Term>& poly1, List<Term>& poly2) {
+	List<Term> result;
 
-	cout << poly1;
-	cout << poly2;
 	cout << "Added!" << endl;
+}
+
+void print_polynomial(struct D_Node* poly) {
+	D_Node* poly = head;
+
+	while (poly->next != NULL) {
+		cout << poly->data << "x^" << poly->next->data;
+		poly = poly->next->next;
+		if (poly->next != NULL) { cout << " + "; }
+
+	}
 }
