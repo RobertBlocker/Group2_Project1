@@ -149,13 +149,18 @@ List<Term> create_list(string input) {
 	return poly;
 }
 
-
+/** Creates a doubly-linked list given a polynomial string
+ *	@param poly1, poly2: List of Terms for polynomials
+ */
 void add_polynomials(List<Term>& poly1, List<Term>& poly2) {
 	List<Term> result;
 
 	cout << "Added!" << endl;
 }
 
+/** Prints formatted polynomial out to console
+ *	@param poly: D_Node containing Term coefficient and exponent
+ */
 void print_polynomial(struct D_Node* poly) {
 	D_Node* poly = head;
 
