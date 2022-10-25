@@ -21,6 +21,9 @@ public:
 
     // Class-member functions
     bool isZero() const;
+    int getCoefficient() const;
+    int getExponent() const;
+    
 private:
     // Data fields
     int exponent, coefficient;
@@ -48,5 +51,14 @@ inline bool Term::isZero() const {
     return coefficient == 0;
 }
 
+//Return Term coefficient
+int Term::getCoefficient() const {
+    return coefficient;
+}
+
+//Return Term exponent 
+int Term::getExponent() const {
+    return exponent;
+}
 
 #endif
